@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <!--
+      Stylesheets and Preprocessors
+      ==============================
+
+      You can always bring in CSS files manually with `<link>` tags, or asynchronously
+      using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+      of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+      By default, stylesheets from your `assets/styles` folder are included
+      here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+      are supported. In production, your styles will be minified and concatenated into
+      a single file.
+
+      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
+
+          + Change the order of your CSS files
+          + Import stylesheets from other directories
+          + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+  -->
+
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/simplemde.min.css">
+  <!--STYLES END-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <style>
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      /* Margin bottom by footer height */
+      margin-top: 70px;
+      margin-bottom: 60px;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      /* Set the fixed height of the footer here */
+      height: 60px;
+      background-color: #f5f5f5;
+    }
+    .container .text-muted {
+      margin: 20px 0;
+    }
+    .footer > .container {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">体操赛事管理系统</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/">主页</a></li>
+        <% if (typeof req.user !== 'undefined') {%>
+        <li><a href="#"><%= req.user.userNick %></a></li>
+        <% if (req.user.userRole === 'admin') { %>
+        <li><a href="/admin/userinfo">用户管理</a></li>
+        <% } %>
+        <% } %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if (typeof req.user == 'undefined') { %>
+        <li><a href="/login">登陆</a></li>
+        <li><a href="/register">注册</a></li>
+        <% } else { %>
+        <li>
+          <a href="#"><%= req.user.userName %> <span class="label label-info"><%= {admin: '管理员', masterjudge: '主裁判', judge: '裁判', teamleader: '代表队'}[req.user.userRole] %></span></a>
+        </li>
+        <% } %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+<div class="container">
+  <%- body %>
+
+
+
+  <!--
+      Client-side Templates
+      ========================
+
+      HTML templates are important prerequisites of modern, rich client applications.
+      To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+      that you load these templates client-side.
+
+      By default, your Gruntfile is configured to automatically load and precompile
+      client-side JST templates in your `assets/templates` folder, then
+      include them here automatically (between TEMPLATES and TEMPLATES END).
+
+      To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
+
+          + Import templates from other directories
+          + Use a different template engine (handlebars, jade, dust, etc.)
+          + Internationalize your client-side templates using a server-side
+            stringfile before they're served.
+  -->
+
+  <!--TEMPLATES-->
+  
+  <!--TEMPLATES END-->
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">&copy 2017-2018 二价氢 / 服务器时间：<%= (new Date()) %>.</p>
+  </div>
+</footer>
+<!--
+
+  Client-side Javascript
+  ========================
+
+  You can always bring in JS files manually with `script` tags, or asynchronously
+  on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+  take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+  By default, files in your `assets/js` folder are included here
+  automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+  CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+  and concatenated into a single file.
+
+  To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+  For example, here are a few things you could do:
+
+      + Change the order of your scripts
+      + Import scripts from other directories
+      + Use a different preprocessor, like TypeScript
+
+-->
+
+<!--SCRIPTS-->
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/0jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/simplemde.min.js"></script>
+<!--SCRIPTS END-->
+</body>
+</html>
